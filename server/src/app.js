@@ -32,14 +32,15 @@ app.use(cors({
 //routes
 
 import userRouter from "./routes/user.routes.js"
-// import ownerDashboardRouter from "./routes/ownerDashboard.routes.js"
+import expenseRouter from "./routes/expense.routes.js"
+import categoryRouter from "./routes/category.routes.js"
+import analyticsRouter from "./routes/analytics.routes.js"
 
 // routes declaration
 
 app.use("/api/users", userRouter);
-// app.use("/api/owner-dashboard", ownerDashboardRouter);
-
-
-// Secured routes
+app.use("/api/expense", expenseRouter);
+app.use("/api/category", categoryRouter);
+app.use("/api/analytics", analyticsRouter);
 
 export { app };
