@@ -12,7 +12,6 @@ const categorySchema = new Schema(
             type: String,
             required: true,
             trim: true,
-            unique: true
         },
     },
     {
@@ -20,5 +19,6 @@ const categorySchema = new Schema(
     }
 );
 
+categorySchema.index({ userId: 1, name: 1 }, { unique: true });
 
 export const Category = mongoose.model("Category", categorySchema);

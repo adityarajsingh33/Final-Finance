@@ -45,59 +45,85 @@ export const createExpense = asyncHandler(async (req, res) => {
 });
 
 export const getExpenses = asyncHandler(async (req, res) => {
-    const { startDate, endDate, category, sort } = req.query;
+    const userId = new mongoose.Types.ObjectId(req.user._id);
+    const { startDate, endDate, sort } = req.query;
 
-    const filters = { userId: req.user._id };
-
-    // Validate date range
-    if (startDate && isNaN(Date.parse(startDate))) {
-        throw new ApiError(400, "Invalid startDate");
-    }
-
-    if (endDate && isNaN(Date.parse(endDate))) {
-        throw new ApiError(400, "Invalid endDate");
-    }
+    const filters = { userId };
 
     if (startDate || endDate) {
         filters.createdAt = {};
-        if (startDate) filters.createdAt.$gte = new Date(startDate);
-        if (endDate) filters.createdAt.$lte = new Date(endDate);
-    }
-
-    if (category) {
-        if (typeof category !== "string") {
-            throw new ApiError(400, "Invalid category value");
+        
+        if (startDate) {
+            const start = new Date(startDate);
+            start.setHours(0, 0, 0, 0); // Set to midnight
+            filters.createdAt.$gte = start;
         }
-
-        const cat = await Category.findOne({
-            userId: req.user._id,
-            name: category.trim()
-        });
-
-        if (!cat) {
-            return res
-                .status(200)
-                .json(new ApiResponse(200, [], "No expenses found for this category"));
+    
+        if (endDate) {
+            const end = new Date(endDate);
+            end.setHours(23, 59, 59, 999); // End of day
+            filters.createdAt.$lte = end;
         }
-
-        filters.categoryId = cat._id;
     }
+    
 
-    // Validate sort
-    let sortOption = { createdAt: -1 };
-    if (sort) {
-        const s = Number(sort);
-        if (![1, -1].includes(s)) {
-            throw new ApiError(400, "Sort must be 1 or -1");
-        }
-        sortOption = { createdAt: s };
-    }
+    const sortOption = sort ? { createdAt: Number(sort) } : { createdAt: -1 };
 
-    const expenses = await Expense.find(filters).sort(sortOption);
+    const expenses = await Expense.aggregate([
+        { $match: filters },
 
-    return res
-        .status(200)
-        .json(new ApiResponse(200, expenses, "Expenses fetched successfully"));
+        // Convert category to ObjectId if it's a string
+        {
+            $addFields: {
+                categoryObjId: {
+                    $cond: [
+                        { $eq: [{ $type: "$category" }, "string"] },
+                        { $toObjectId: "$category" },
+                        "$category"
+                    ]
+                }
+            }
+        },
+
+        // Lookup category name
+        {
+            $lookup: {
+                from: "categories",
+                localField: "categoryObjId",
+                foreignField: "_id",
+                as: "categoryData"
+            }
+        },
+
+        { $unwind: { path: "$categoryData", preserveNullAndEmptyArrays: true } },
+
+        // Add categoryName field
+        {
+            $addFields: {
+                categoryName: "$categoryData.name"
+            }
+        },
+
+        // Optionally project only necessary fields
+        {
+            $project: {
+                _id: 1,
+                userId: 1,
+                amount: 1,
+                note: 1,
+                createdAt: 1,
+                updatedAt: 1,
+                category: 1,
+                categoryName: 1
+            }
+        },
+
+        { $sort: sortOption }
+    ]);
+
+    return res.status(200).json(
+        new ApiResponse(200, expenses, "Expenses with categoryName fetched successfully")
+    );
 });
 
 export const getExpenseById = asyncHandler(async (req, res) => {

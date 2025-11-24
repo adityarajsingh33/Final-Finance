@@ -1,0 +1,62 @@
+.expense-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .expense-form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    width: 400px;
+    max-width: 90%;
+  }
+  
+  .expense-form-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .expense-form-error {
+    color: red;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  
+  .expense-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .expense-form-label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  .expense-form-input {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+  }
+  
+  .expense-form-actions button {
+    min-width: 80px;
+  }
+  
+  .expense-form-submit-btn:disabled {
+    background: #7cb3f1;
+    cursor: not-allowed;
+  }
+  
+  .expense-form-cancel-btn {
+    background: white;
+    border: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
