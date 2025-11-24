@@ -33,7 +33,7 @@ export default function Login() {
         dispatch(setUser(response.data.data.user));
         navigate("/dashboard");
       } else {
-        setApiError(response?.data?.message || "Login failed.");
+        setApiError(response?.response?.data?.message || "Login failed.");
       }
     } catch (err) {
       setApiError(err?.message || "Server error occurred.");

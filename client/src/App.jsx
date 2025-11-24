@@ -1,19 +1,23 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
 
+// Layouts
 import AuthLayout from "./Layouts/AuthLayout";
+import HomeLayout from "./layouts/HomeLayout";
 
-// Auth Pages
+// Pages
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import PublicRoute from "./Guards/PublicRoute.jsx";
 
-// PublicRoute wrapper
+// Route Guards
+import PublicRoute from "./Guards/PublicRoute.jsx";
+import ProtectedRoute from "./Guards/ProtectedRoute.jsx";
+import Expense from "./pages/Expense.jsx";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Auth Routes (Login / Signup) */}
         <Route element={<AuthLayout />}>
           <Route
             path="/login"
@@ -31,6 +35,16 @@ export default function App() {
               </PublicRoute>
             }
           />
+        </Route>
+
+        <Route
+          element={
+            <ProtectedRoute>
+              <HomeLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/" element={<Expense />} />
         </Route>
       </Routes>
     </BrowserRouter>
