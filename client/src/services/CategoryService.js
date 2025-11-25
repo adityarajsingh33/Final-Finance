@@ -44,7 +44,7 @@ export class CategoryService {
   // Update a category by id
   async updateCategoryById(id, { name }) {
     try {
-      const response = await api.patch(`/api/category/${id}`, { name });
+      const response = await api.put(`/api/category/${id}`, { name });
       return response;
     } catch (error) {
       console.log("CategoryService :: updateCategoryById :: error ::", error);

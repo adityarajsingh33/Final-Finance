@@ -41,7 +41,7 @@ export default function Header() {
         <NavLink to="/" className={navLinkClass}>
           Expenses
         </NavLink>
-        <NavLink to="/category" className={navLinkClass}>
+        <NavLink to="/categories" className={navLinkClass}>
           Categories
         </NavLink>
         <NavLink to="/analytics" className={navLinkClass}>

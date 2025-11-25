@@ -12,6 +12,7 @@ import Signup from "./pages/Signup";
 import PublicRoute from "./Guards/PublicRoute.jsx";
 import ProtectedRoute from "./Guards/ProtectedRoute.jsx";
 import Expense from "./pages/Expense.jsx";
+import Category from "./pages/Category.jsx";
 
 export default function App() {
   return (
@@ -45,6 +46,7 @@ export default function App() {
           }
         >
           <Route path="/" element={<Expense />} />
+          <Route path="/categories" element={<Category />} />
         </Route>
       </Routes>
     </BrowserRouter>
