@@ -1,52 +1,100 @@
-.expense-container {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .expense-title {
-    font-weight: 700;
-    color: #1f2937; /* Gray-800 */
-  }
-  
-  .expense-create-btn {
-    transition: all 0.2s;
-  }
-  
-  .expense-create-btn:hover {
-    transform: translateY(-1px);
-  }
-  
-  .expense-filters input,
-  .expense-filters select {
-    min-width: 160px;
-  }
-  
-  .expense-table th,
-  .expense-table td {
-    text-align: left;
-    vertical-align: middle;
-  }
-  
-  .expense-action-btn {
-    transition: all 0.2s;
-  }
-  
-  .expense-action-btn:hover {
-    background-color: #f3f4f6; /* Gray-100 */
-  }
-  
-  .expense-dropdown {
-    min-width: 120px;
-    z-index: 50;
-  }
-  
-  .expense-error {
-    background-color: #fee2e2;
-    padding: 0.5rem;
-    border-radius: 0.375rem;
-  }
-  
-  .expense-loading {
-    font-weight: 500;
-  }
-  
+/* --- Filters --- */
+.expense-filter-input {
+  border: 1px solid #d1d5db;
+  padding: 8px 10px;
+  border-radius: 6px;
+  min-width: 160px;
+  background: white;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.expense-table th {
+  background: #f3f4f6;
+  padding: 14px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.expense-table td {
+  padding: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.expense-table tr:hover {
+  background: #f9fafb;
+}
+
+/* --- Action Column --- */
+.actions-cell {
+  position: relative;
+}
+
+.action-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.action-btn {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.action-btn:hover {
+  background: #f3f4f6;
+}
+
+/* Dropdown anchored inside td */
+.dropdown-menu {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background: white;
+  padding: 4px 0;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  border: 1px solid #e5e7eb;
+  z-index: 20;
+  min-width: 120px;
+}
+
+.dropdown-menu button {
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  background: white;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+  background: #f3f4f6;
+}
+
+/* Error */
+.expense-error {
+  background: #fee2e2;
+  padding: 10px 12px;
+  border-left: 4px solid #dc2626;
+  border-radius: 6px;
+}
+
+/* Loading */
+.expense-loading {
+  color: #6b7280;
+  font-weight: 500;
+}
+

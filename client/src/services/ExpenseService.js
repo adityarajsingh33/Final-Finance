@@ -52,10 +52,21 @@ export class ExpenseService {
   // Update an existing expense by id
   async updateExpenseById(id, { amount, categoryId, note }) {
     try {
-      const response = await api.post(`/api/expense/${id}`, { amount, categoryId, note });
+      const response = await api.put(`/api/expense/${id}`, { amount, categoryId, note });
       return response;
     } catch (error) {
       console.log("ExpenseService :: updateExpenseById :: error ::", error);
+      return error;
+    }
+  }
+
+  // Update an existing expense by id
+  async deleteExpenseById(id) {
+    try {
+      const response = await api.delete(`/api/expense/${id}`, {});
+      return response;
+    } catch (error) {
+      console.log("ExpenseService :: deleteExpenseById :: error ::", error);
       return error;
     }
   }

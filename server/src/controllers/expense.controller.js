@@ -191,7 +191,7 @@ export const updateExpense = asyncHandler(async (req, res) => {
             throw new ApiError(404, "Invalid Category.");
         }
 
-        expense.categoryId = categoryId;
+        expense.category = categoryId;
     }
 
     // Validate note

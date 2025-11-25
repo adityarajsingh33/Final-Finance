@@ -36,7 +36,12 @@ export default function ExpenseFormOverlay({ isOpen, onClose, expenseData }) {
   const fetchCategories = async () => {
     try {
       const res = await categoryService.getAllCategories();
-      if (res?.status === 200) setCategories(res.data.data);
+      if (res?.status === 200){
+        if(res.data.data.size === 0){
+          setError("Add categories in the Categiry Section first")
+        }
+        setCategories(res.data.data);
+      }
     } catch (err) {
       console.error("Failed to fetch categories", err);
     }
