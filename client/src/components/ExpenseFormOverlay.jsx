@@ -37,7 +37,7 @@ export default function ExpenseFormOverlay({ isOpen, onClose, expenseData }) {
     try {
       const res = await categoryService.getAllCategories();
       if (res?.status === 200){
-        if(res.data.data.size === 0){
+        if(res.data.data.length === 0){
           setError("Add categories in the Categiry Section first")
         }
         setCategories(res.data.data);
