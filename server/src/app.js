@@ -9,13 +9,6 @@ app.use(urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 app.use(cookieParser());
 
-// Set SameSite=Lax for all cookies
-app.use((req, res, next) => {
-    // Add SameSite=Lax for all cookies
-    res.cookie('key', 'value', { sameSite: 'Lax' });
-    next();
-});
-
 // CORS configuration for allowed origins
 const allowedOrigins = [
     'http://localhost:5000',
