@@ -14,6 +14,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
     'http://localhost:5000',
+    'https://test-8d73e.web.app'
 ];
 
 app.use(cors({
